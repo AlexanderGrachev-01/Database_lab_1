@@ -2,6 +2,53 @@
 
 1. Дана схема базы данных в виде следующих отношений. С помощью операторов SQL создать логическую структуру соответствующих таблиц для хранения в СУБД, используя известные средства поддержания целостности (NOT NULL, UNIQUE, и т.д.). Обосновать выбор типов данных и используемые средства поддержания целостности. При выборе подходящих типов данных использовать информацию о конкретных значениях полей БД.
 
+```sql
+create table "ЗАКАЗЧИК"
+(
+    "ИДЕНТИФИКАТОР" integer not null
+        constraint заказчик_pk
+            primary key,
+    "ФАМИЛИЯ"       varchar not null,
+    "РАЙОН"         varchar not null,
+    "СКИДКА, %"     smallint
+);
+
+create table "ПУНКТ ПРОКАТА"
+(
+    "ИДЕНТИФИКАТОР"   integer not null
+        constraint "пункт проката_pk"
+            primary key,
+    "НОМЕР"           varchar not null,
+    "РАСПОЛОЖЕНИЕ"    varchar not null,
+    "КОМИССИОННЫЕ, %" integer not null
+);
+
+create table "ВЕЩИ"
+(
+    "ИДЕНТИФИКАТОР"                 integer not null
+        constraint вещи_pk
+            primary key,
+    "НАЗВАНИЕ"                      varchar not null,
+    "СКЛАД"                         varchar not null,
+    "КОЛ-ВО"                        integer not null,
+    "ПРОКАТНАЯ ЦЕНА ЗА НЕДЕЛЮ, РУБ" integer not null
+);
+
+create table "ПРОКАТ"
+(
+    "НОМЕР"         integer not null
+        constraint прокат_pk
+            primary key,
+    "КЛИЕНТ"        integer not null,
+    "ДАТА"          varchar not null,
+    "ПУНКТ ПРОКАТА" integer not null,
+    "ВЕЩЬ"          integer not null,
+    "СРОК ПРОКАТА"  integer not null,
+    "СУММА, РУБ"    integer not null
+);
+```
+
+
 2. Ввести в ранее созданные таблицы конкретные данные (см. прил. 1). Использовать скрипт-файл из операторов INSERT или вспомогательную утилиту.
 ```sql
 insert into "ЗАКАЗЧИК"("ИДЕНТИФИКАТОР", "ФАМИЛИЯ", "РАЙОН", "СКИДКА, %")
